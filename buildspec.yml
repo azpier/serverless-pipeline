@@ -1,17 +1,16 @@
 version: 0.0
 environment_variables:
     plaintext:
-        "INPUT_FILE": ""
-        "S3_WEBSITE_BUCKET": ""
-        "S3_ARTIFACT_BUCKET": ""
+        "INPUT_FILE": "saml.yaml"
+        "S3_BUCKET": ""
 containers:
     LambdaFunctions:
         phases:
             during_build:
                 commands:
                     - npm install
-                    - aws cloudformation package --template $INPUT_FILE --s3-bucket $S3_ARTIFACT_BUCKET --output-template post-package.yaml
-                    - aws s3 sync website/ "s3://${S3_WEBSITE_BUCKET}"
+                    - aws cloudformation package --template $INPUT_FILE --s3-bucket $S3_BUCKET --output-template post-saml.yaml
         artifacts:
             files:
-                - post-package.yaml
+                - post-saml.yaml
+                - beta.json

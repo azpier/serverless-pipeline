@@ -1,28 +1,15 @@
 'use strict';
 var moment = require('moment');
 
-// Commented-out code is placeholder for authentication through API Gateway & Cognito.
-// Pending until CORS through SAM is better supported.
-// See: https://github.com/awslabs/serverless-application-model/issues/23
-
-
 exports.handler = (event, context, callback) => {
 
     var originURL = process.env.ORIGIN_URL || '*';
 
-    /*
-    if (!event.requestContext.authorizer) {
-      errorResponse('Authorization not configured', context.awsRequestId, callback);
-      return;
-    }
-    const username = event.requestContext.authorizer.claims['cognito:username'];
-    */
-
     emitLambdaAge();
 
-    // This variable can be updated and checked in to your repository
+    // This variable can be updated and checked in to your repository 
     // to update the number of SAM squirrels on the screen.
-    var samCount = 15;
+    var samCount = 1;
 
     // Or you can update your Lambda function's environment variable.
     var samMultiplier = process.env.SAM_MULTIPLIER || 1;
@@ -53,19 +40,3 @@ function emitLambdaAge() {
 
     console.log('Lambda is ' + daysOld + ' days old!');
 }
-
-
-/*
-function errorResponse(errorMessage, awsRequestId, callback) {
-  callback(null, {
-    statusCode: 500,
-    body: JSON.stringify({
-      Error: errorMessage,
-      Reference: awsRequestId,
-    }),
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-  });
-}
-*/
